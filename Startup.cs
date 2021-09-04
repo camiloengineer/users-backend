@@ -13,7 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using User.Backend.Api.Clases.Mapping;
 using User.Backend.Api.Core.Auth;
@@ -24,12 +23,10 @@ namespace User.Backend.Api
 {
     public class Startup
     {
-        //private IDynamoDBContext _dynamoDBContext;
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-         //   _dynamoDBContext = dynamoDBContext;
         }
 
         public static IConfiguration Configuration { get; private set; }
@@ -62,7 +59,12 @@ namespace User.Backend.Api
 
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddSingleton(Configuration);
-            services.AddCors();
+            services.AddCors( o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
 
             var configMapper = new AutoMapper.MapperConfiguration(cfg => { cfg.AddProfile(new AutoMapperProfileConfiguration()); });
             var mapper = configMapper.CreateMapper();
@@ -112,10 +114,7 @@ namespace User.Backend.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors(builder =>
-            builder.AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod());
+            app.UseCors("MyPolicy");
 
             if (env.IsDevelopment())
             {

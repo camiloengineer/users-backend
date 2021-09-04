@@ -9,8 +9,8 @@ namespace User.Backend.Api.Clases.Dto
         public string CUST_NAME { get; set; }
         public int CUST_PHONE { get; set; }
         public string CUST_EMAIL { get; set; }
-        public string CUST_ADDRESS { get; set; }
         public bool CUST_ACTIVE { get; set; }
         public string CUST_PASSWORD { get; set; }
+        public string CUST_AVATAR { get; set; }
     }
 }

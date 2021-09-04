@@ -41,10 +41,8 @@ namespace User.Backend.Api.Core.Auth
                         Subject = new ClaimsIdentity(new Claim[]
                         {
                             new Claim(ClaimTypes.Name, userDB.Name),
-                            new Claim(ClaimTypes.MobilePhone, userDB.Phone.ToString()),
-                            new Claim(ClaimTypes.StreetAddress, userDB.Address),
-                            new Claim(ClaimTypes.DateOfBirth, userDB.Birthdate.ToString()),
                             new Claim(ClaimTypes.SerialNumber, userDB.DNI.ToString()),
+                            new Claim(ClaimTypes.Email, userDB.Email),
                         }),
                         Expires = DateTime.UtcNow.AddHours(1),
                         SigningCredentials =

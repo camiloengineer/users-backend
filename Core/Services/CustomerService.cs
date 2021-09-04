@@ -71,7 +71,6 @@ namespace User.Backend.Api.Core.Services
                 {
                     var dto = new CUSTOMER();
 
-                    dto.CUST_ADDRESS = customer.Address;
                     dto.CUST_BIRTHDAY = customer.Birthdate;
                     dto.CUST_DNI = customer.DNI;
                     dto.CUST_EMAIL = customer.Email;
@@ -80,6 +79,7 @@ namespace User.Backend.Api.Core.Services
                     dto.CUST_PHONE = customer.Phone;
                     dto.CUST_ACTIVE = customer.Active;
                     dto.CUST_PASSWORD = Util.Encrypt( customer.Password, customer.DNI );
+                    dto.CUST_AVATAR = customer.Avatar;
 
                     await _dynamoDBContext.SaveAsync<CUSTOMER>(dto);
 
@@ -102,7 +102,6 @@ namespace User.Backend.Api.Core.Services
                 {
                     var dto = new CUSTOMER();
 
-                    dto.CUST_ADDRESS = customer.Address;
                     dto.CUST_BIRTHDAY = customer.Birthdate;
                     dto.CUST_DNI = customer.DNI;
                     dto.CUST_EMAIL = customer.Email;
@@ -110,7 +109,14 @@ namespace User.Backend.Api.Core.Services
                     dto.CUST_NAME = customer.Name;
                     dto.CUST_PHONE = customer.Phone;
                     dto.CUST_ACTIVE = customer.Active;
-                    dto.CUST_PASSWORD = Util.Encrypt(customer.Password, customer.DNI);
+                    dto.CUST_AVATAR = customer.Avatar;
+
+                    if (!string.IsNullOrEmpty(customer.NewPassword))
+                    {
+                        dto.CUST_PASSWORD = Util.Encrypt(customer.NewPassword, customer.DNI);
+                    }
+                    else dto.CUST_PASSWORD = customer.Password;
+
 
                     await _dynamoDBContext.SaveAsync(dto);
 

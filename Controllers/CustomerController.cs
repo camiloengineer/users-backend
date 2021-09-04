@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Amazon.DynamoDBv2.DataModel;
 using System.Net;
 using System.Dynamic;
 using User.Backend.Api.Core.Services;
@@ -18,18 +17,15 @@ namespace User.Backend.Api.Controllers
     [Route("api/v{version:apiVersion}/[controller]")]
     public class CustomerController : Controller
     {
-        private IDynamoDBContext _dynamoDBContext;
         private readonly ILogger<CustomerController> _logger;
         private readonly ICustomerService _userService;
         private readonly IJwtAuthenticationManager _jwtAuthenticationManager;
 
         public CustomerController(
-            IDynamoDBContext dynamoDBContext,
             ILogger<CustomerController> logger,
             ICustomerService userService,
             IJwtAuthenticationManager jwtAuthenticationManager)
         {
-            _dynamoDBContext = dynamoDBContext;
             _logger = logger;
             _userService = userService;
             _jwtAuthenticationManager = jwtAuthenticationManager;
@@ -55,6 +51,7 @@ namespace User.Backend.Api.Controllers
                 dynamic obj = new ExpandoObject();
                 obj.codigoError = "OK";
                 obj.token = token;
+                obj.user = userDB;
 
                 return new OkObjectResult(obj);
             }
@@ -108,7 +105,7 @@ namespace User.Backend.Api.Controllers
             }
         }
 
-
+        [AllowAnonymous]
         [HttpPost("CreateCustomer")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
