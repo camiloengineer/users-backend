@@ -4,12 +4,13 @@ _Este es un proyecto NetCore v3.1_
 
 ## Comenzando 🚀
 
+_Los endpoints fueron desplegados en Amazon Lambda Functions y están disponibles en Postman: [https://www.getpostman.com/collections/0d00dc7979ad3c3e6a75](https://www.getpostman.com/collections/0d00dc7979ad3c3e6a75/)._
+
 _En caso que requieras obtener una copia del proyecto en tu máquina local para propósitos de desarrollo y pruebas, puedes seguir estas instrucciones ._
 
 ### Pre-requisitos 📋
 
 _Es necesario que tengas instalado [Git](https://git-scm.com/) y el SDK [.NET 5.0](https://dotnet.microsoft.com/download) que soporta  NetCore 3.1._
-
 
 ### Instalación 🔧
 
@@ -49,6 +50,7 @@ _Para realizar el deploy hay que ejecutar este comando_
 _Estas herramamientas se utilizaron para crear el proyecto_
 
 * [.NET](https://dotnet.microsoft.com/) - Es un framework informático administrado, gratuito y de código abierto para los sistemas operativos Windows, Linux y macOS. 
+* [OAuth 2.0](https://oauth.net/2/) - Open Authorization es un estándar abierto que permite flujos simples de autorización para sitios web o aplicaciones informáticas. 
 
 ## Autor ✒️
 
